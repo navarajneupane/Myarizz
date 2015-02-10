@@ -1,0 +1,6 @@
+# Build source #
+###################
+*.class
+*.project
+*.classpath
+
