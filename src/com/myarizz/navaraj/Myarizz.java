@@ -3,27 +3,40 @@
  */
 package com.myarizz.navaraj;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * @author nneupane
- *
+ * @author navaraj
+ * 
  */
 public class Myarizz {
 
+	/**
+	 * No of decks
+	 */
 	private int deck;
+	
+	/**
+	 * No of players
+	 */
 	private int players;
+	
+	/**
+	 * Total points obtained 
+	 */
 	private int totalPoint;
 
 	/**
-	 * @author nneupane
-	 *This enum keeps information of all possible points of myarizz.
+	 * @author navaraj
+	 * This enum keeps information of all possible points of myarizz.
 	 */
 	private enum Point {
 		marriageAtHand(10), marriageAtFloor(15), tunnela(5), twoPointOne(2), twoPointTwo(
 				5), twoPointThree(8), threePointOne(2), threePointTwo(5), threePointThree(
-				8), fivePointOne(5), fivePointTwo(15), fivePointThree(25), alterTunnela(35), jokerTunnela(10), twoPointTunnela(20);
-		
+				8), fivePointOne(5), fivePointTwo(15), fivePointThree(25), alterTunnela(
+				35), jokerTunnela(10), twoPointTunnela(20);
+
 		private int value;
 
 		private Point(int value) {
@@ -31,42 +44,48 @@ public class Myarizz {
 		}
 	};
 
-	public static void main(String[] args) {
-		Point pointType[] = Point.values();
-		for(Point myPoint:pointType){
-			System.out.println("Point:"+myPoint);
-		}
-		
-		Point points = Point.tunnela;
-		System.out.println("Point for marriage for hand is:"+points.value);
-		
-	}
+	/**
+	 * TODO Switch Case. Implement it in a different way.
+	 */
 
 	public static void game() {
-		String input;
-		
+		int input;
+
 		Scanner in = new Scanner(System.in);
-		
-		
-		System.out.println("Enter your point type:");
-		input = in.nextLine();
-		System.out.println("You entered:"+input);
+
+		Point pointType[] = Point.values();
+		ArrayList<String> pointTypeList = new ArrayList<String>();
+		int i = 0;
+		for (Point myPoint : pointType) {
+			i++;
+			pointTypeList.add(myPoint.toString());
+			System.out.println(i + ". " + myPoint);
+		}
+
+		System.out.println("Enter the number of your point type:");
+		input = Integer.parseInt(in.nextLine());
+		String userInput = pointTypeList.get(input - 1);
+		System.out.println(userInput + ":" + Point.valueOf(userInput).value+" points");
+
+		switch (input) {
+		case 1:
+			//System.out.println(userInput + ":" + Point.valueOf(userInput));
+			break;
+		case 2:
+			//System.out.println(userInput + ":" + Point.valueOf(userInput));
+			break;
+		case 3:
+			break;
+		case 4:
+		}
 	}
-
-
-	// Currency usCoin = Currency.DIME;
-	// switch (usCoin) {
-	// case PENNY:
-	// System.out.println("Penny coin");
-	// break;
-	// case NICKLE:
-	// System.out.println("Nickle coin");
-	// break;
-	// case DIME:
-	// System.out.println("Dime coin");
-	// break;
-	// case QUARTER:
-	// System.out.println("Quarter coin");
-	// }
-
+	
+	/**
+	 * @param args
+	 * @author navaraj
+	 * 
+	 */
+	public static void main(String[] args) {
+		game();
+	}
 }
