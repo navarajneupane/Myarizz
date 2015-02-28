@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppMyarizz</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_player_details">PlayerDetailsActivity</string>
+    <string name="title_activity_individual_game">IndividualGameActivity</string>
+    <string name="title_activity_result_calculated">ResultCalculatedActivity</string>
+</resources>

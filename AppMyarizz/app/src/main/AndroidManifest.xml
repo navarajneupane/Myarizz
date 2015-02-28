@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lbishal.appmyarizz" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PlayerDetailsActivity"
+            android:label="@string/title_activity_player_details"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.lbishal.appmyarizz.MainActivity" />
+        </activity>
+        <activity
+            android:name=".IndividualGameActivity"
+            android:label="@string/title_activity_individual_game" >
+        </activity>
+        <activity
+            android:name=".ResultCalculatedActivity"
+            android:label="@string/title_activity_result_calculated" >
+        </activity>
+    </application>
+
+</manifest>
