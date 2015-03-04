@@ -26,7 +26,7 @@ public class PlayerDetailsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_player_details);
         //set the logo
         ImageView imView = (ImageView) findViewById(R.id.imageViewLogo);
-        imView.setImageResource(R.drawable.HamroLogo);
+        imView.setImageResource(R.drawable.hamrologo);
         //get the number of players from passed context when called from main activity
         final int numberOfPlayers = getIntent().getExtras().getInt("numberOfPlayers");
         //maintain an array to save the name of players

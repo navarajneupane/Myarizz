@@ -21,7 +21,7 @@ public class ResultCalculatedActivity extends ActionBarActivity {
         setContentView(R.layout.activity_result_calculated);
         //set the logo
         ImageView imView = (ImageView) findViewById(R.id.imageViewLogo);
-        imView.setImageResource(R.drawable.HamroLogo);
+        imView.setImageResource(R.drawable.hamrologo);
         //get the result
         final HashMap<String,Integer> calculatedResult = (HashMap<String,Integer>)getIntent().getExtras().getSerializable("calculatedResult");
 

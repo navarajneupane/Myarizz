@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +30,13 @@ public class IndividualGameActivity extends ActionBarActivity {
         setContentView(R.layout.activity_individual_game);
         //set the logo
         ImageView imView = (ImageView) findViewById(R.id.imageViewLogo);
-        imView.setImageResource(R.drawable.HamroLogo);
+        imView.setImageResource(R.drawable.hamrologo);
+        imView.requestLayout();
+        int width = 300;
+        int height = 60;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
+        imView.setLayoutParams(params);
+        imView.getLayoutParams().height = 50;
         //get the list of players from passed context when called from player details activity
         final String[] listOfPlayers = getIntent().getExtras().getStringArray("listOfPlayers");
         //create the table and add to the view

@@ -1,15 +1,16 @@
 package com.example.lbishal.appmyarizz;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 
@@ -21,7 +22,9 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         //set the logo
         ImageView imView = (ImageView) findViewById(R.id.imageViewLogo);
-        imView.setImageResource(R.drawable.HamroLogo);
+        imView.setImageResource(R.drawable.hamrologo);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 400);
+        imView.setLayoutParams(params);
         final NumberPicker np;
         //set the properties for number picker
         np = (NumberPicker) findViewById(R.id.numberPicker);

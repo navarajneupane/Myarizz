@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="186dp"
+        android:layout_width="350dp"
         android:layout_height="69dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Choose the number of players"
