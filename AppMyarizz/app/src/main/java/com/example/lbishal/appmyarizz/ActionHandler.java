@@ -4,6 +4,8 @@
 package com.example.lbishal.appmyarizz;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +24,7 @@ public class ActionHandler {
 	 * 
 	 * @return map
 	 */
+    static String TAG = "Action Handler";
 	public static Map<String, Integer> sendInput(Map<String, List<Object>> map){
 		
 		int totalPoints = 0;
@@ -33,20 +36,21 @@ public class ActionHandler {
 			List<Object> values = entry.getValue();
 			int pointOfEachPlayer = (int) values.get(0); 
 			totalPoints += pointOfEachPlayer;
-		}		
+		}
+        Log.d(TAG, "Total points is " + String.valueOf(totalPoints));
 		
 		for(Map.Entry<String, List<Object>> entry:map.entrySet()){
 			
 			List<Object> values = entry.getValue();
 			int obtainedPoint = 0;
 			
-			if(values.get(1)=="seen" && values.get(2)!="winner"){
+			if(((boolean)values.get(1)) && (!(boolean)(values.get(2)))){ //seen but not winner
 				obtainedPoint = (int)values.get(0)*values.size()-(totalPoints +3); 
 				gamerPoint -=obtainedPoint;
 				System.out.println("Key:"+entry.getKey()+ " Obtained Point:"+obtainedPoint);
 				mapPlayerPoint.put(entry.getKey(), obtainedPoint);
 			}
-			else if(values.get(1)!="seen"){
+			else if(!(boolean)values.get(1)){
 				obtainedPoint = -(totalPoints +10);
 				gamerPoint -=obtainedPoint;
 				mapPlayerPoint.put(entry.getKey(), obtainedPoint);

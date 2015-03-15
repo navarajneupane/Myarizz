@@ -133,6 +133,8 @@ public class IndividualGameActivity extends Activity {
                         playerValues.add(currentPoints);
                         playerValues.add(seenStatus);
                         playerValues.add(winnerFlag);
+                        Log.d(TAG,"Current Player Values: "+ currentPlayer + "," + String.valueOf(currentPoints) +
+                                "," + String.valueOf(seenStatus) + "," + String.valueOf(winnerFlag));
                         calculateHashMap.put(currentPlayer,playerValues);
                     }
                     //call the function to do the calculations and receive the value
