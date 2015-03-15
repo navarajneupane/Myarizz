@@ -1,5 +1,7 @@
 package com.example.lbishal.appmyarizz;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,9 +13,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
-public class ResultCalculatedActivity extends ActionBarActivity {
+public class ResultCalculatedActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,24 +25,30 @@ public class ResultCalculatedActivity extends ActionBarActivity {
         //set the logo
         ImageView imView = (ImageView) findViewById(R.id.imageViewLogo);
         imView.setImageResource(R.drawable.hamrologo);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 100);
+        imView.setLayoutParams(params);
         //get the result
-        final HashMap<String,Integer> calculatedResult = (HashMap<String,Integer>)getIntent().getExtras().getSerializable("calculatedResult");
+        final Map<String,Integer> calculatedResult = (HashMap<String,Integer>)getIntent().getExtras().getSerializable("calculatedResult");
 
         //iterate through the received result and populate the table
         //create the table and add to the view
         LinearLayout currentView = (LinearLayout)findViewById(R.id.resultCalculatedView);
-        TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-        TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-        TableLayout tableLayout = new TableLayout(this);
+        TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.MATCH_PARENT);
+        TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT);
+        TableLayout tableLayout = new TableLayout(getApplicationContext());
+        tableLayout.setStretchAllColumns(true);
         tableLayout.setLayoutParams(tableParams);
 
-        TableRow tableRowStatic = new TableRow(this);
+        TableRow tableRowStatic = new TableRow(getApplicationContext());
         tableRowStatic.setLayoutParams(tableParams);
-        TextView tV = new TextView(this);
+        TextView tV = new TextView(getApplicationContext());
         tV.setLayoutParams(rowParams);
         tV.setText("Name");
+        tV.setTextColor(Color.BLACK);
         tableRowStatic.addView(tV);
+        tV = new TextView(getApplicationContext());
         tV.setText("Points");
+        tV.setTextColor(Color.BLACK);
         tableRowStatic.addView(tV);
         tableLayout.addView(tableRowStatic);
 
@@ -47,13 +56,19 @@ public class ResultCalculatedActivity extends ActionBarActivity {
             String currentPlayer = entry.getKey();
             Integer currentPoints = entry.getValue();
 
-            TableRow tbRow = new TableRow(this);
+            TableRow tbRow = new TableRow(getApplicationContext());
             tbRow.setLayoutParams(tableParams);
-            TextView tv = new TextView(this);
-            tv.setLayoutParams(rowParams);
+
+            tV = new TextView(getApplicationContext());
+            tV.setLayoutParams(rowParams);
             tV.setText(currentPlayer);
+            tV.setTextColor(Color.BLACK);
             tbRow.addView(tV);
-            tV.setText(currentPoints);
+
+            tV = new TextView(getApplicationContext());
+            tV.setLayoutParams(rowParams);
+            tV.setText(String.valueOf(currentPoints));
+            tV.setTextColor(Color.BLACK);
             tbRow.addView(tV);
 
             tableLayout.addView(tbRow);

@@ -1,13 +1,18 @@
 package com.example.lbishal.appmyarizz;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,17 +23,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlayerDetailsActivity extends ActionBarActivity {
-
+public class PlayerDetailsActivity extends Activity {
+    String TAG = "PlayerDetailsActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_details);
+
         //set the logo
         ImageView imView = (ImageView) findViewById(R.id.imageViewLogo);
         imView.setImageResource(R.drawable.hamrologo);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 100);
+        imView.setLayoutParams(params);
+
         //get the number of players from passed context when called from main activity
         final int numberOfPlayers = getIntent().getExtras().getInt("numberOfPlayers");
+        Log.d(TAG,"Total players in the game is : " + String.valueOf(numberOfPlayers));
         //maintain an array to save the name of players
         final String[] listOfPlayers = new String[numberOfPlayers];
         //programmatically create text box to allow user to input name of players
@@ -39,10 +49,12 @@ public class PlayerDetailsActivity extends ActionBarActivity {
             // Input type is text
             ed.setInputType(InputType.TYPE_CLASS_TEXT);
             // setting height/width for your editText
-            ed.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            ed.setLayoutParams(new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 100));
             currentLayout.addView(ed);
             editTextList.add(ed);
         }
+
+
         //get the listener for begin game button
         final Button beginGameButton = (Button)findViewById(R.id.beginGameButton);
         beginGameButton.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +83,8 @@ public class PlayerDetailsActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_player_details, menu);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,12 +1,17 @@
 package com.example.lbishal.appmyarizz;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,9 +25,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
-public class IndividualGameActivity extends ActionBarActivity {
+public class IndividualGameActivity extends Activity {
+    String TAG = "IndividualGameActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,33 +38,43 @@ public class IndividualGameActivity extends ActionBarActivity {
         //set the logo
         ImageView imView = (ImageView) findViewById(R.id.imageViewLogo);
         imView.setImageResource(R.drawable.hamrologo);
-        imView.requestLayout();
-        int width = 300;
-        int height = 60;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 100);
         imView.setLayoutParams(params);
-        imView.getLayoutParams().height = 50;
         //get the list of players from passed context when called from player details activity
         final String[] listOfPlayers = getIntent().getExtras().getStringArray("listOfPlayers");
+        Log.d(TAG, "The players are ");
+        for(String players:listOfPlayers) {
+            Log.d(TAG, players);
+        }
+
         //create the table and add to the view
         LinearLayout currentView = (LinearLayout)findViewById(R.id.individual_game_view);
 
-        TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.MATCH_PARENT);
         TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-        TableLayout tableLayout = new TableLayout(this);
+        TableLayout tableLayout = new TableLayout(getApplicationContext());
         tableLayout.setLayoutParams(tableParams);
+        tableLayout.setStretchAllColumns(true);
 
-        TableRow tableRowStatic = new TableRow(this);
+
+        TableRow tableRowStatic = new TableRow(getApplicationContext());
         tableRowStatic.setLayoutParams(tableParams);
-        TextView tV = new TextView(this);
+        TextView tV = new TextView(getApplicationContext());
         tV.setLayoutParams(rowParams);
         tV.setText("Name");
+        tV.setTextColor(Color.BLACK);
         tableRowStatic.addView(tV);
+        tV = new TextView(getApplicationContext());
         tV.setText("Points");
+        tV.setTextColor(Color.BLACK);
         tableRowStatic.addView(tV);
+        tV = new TextView(getApplicationContext());
         tV.setText("Seen");
+        tV.setTextColor(Color.BLACK);
         tableRowStatic.addView(tV);
+        tV = new TextView(getApplicationContext());
         tV.setText("Winner");
+        tV.setTextColor(Color.BLACK);
         tableRowStatic.addView(tV);
         tableLayout.addView(tableRowStatic);
 
@@ -70,25 +87,29 @@ public class IndividualGameActivity extends ActionBarActivity {
 
         for (String S:listOfPlayers) {
 
-            TableRow tableRow = new TableRow(this);
+            TableRow tableRow = new TableRow(getApplicationContext());
             tableRow.setLayoutParams(tableParams);
             //first column: name
-            TextView textView = new TextView(this);
+            TextView textView = new TextView(getApplicationContext());
             textView.setLayoutParams(rowParams);
             textView.setText(S);
+            textView.setTextColor(Color.BLACK);
             tableRow.addView(textView);
             //second column: points
-            EditText ed = new EditText(this);
+            EditText ed = new EditText(getApplicationContext());
             ed.setLayoutParams(rowParams);
             ed.setInputType(InputType.TYPE_CLASS_NUMBER);
+            ed.setTextColor(Color.BLACK);
             pointsList.add(ed);
             tableRow.addView(ed);
             //third column: seen/unseen
-            RadioButton rB = new RadioButton(this);
+            RadioButton rB = new RadioButton(getApplicationContext());
+            rB.setTextColor(Color.BLACK);
             seenList.add(rB);
             tableRow.addView(rB);
             //fourth column: winner/not-winner
-            CheckBox cB = new CheckBox(this);
+            CheckBox cB = new CheckBox(getApplicationContext());
+            cB.setTextColor(Color.BLACK);
             winnerList.add(cB);
             tableRow.addView(cB);
             tableLayout.addView(tableRow);
@@ -98,7 +119,7 @@ public class IndividualGameActivity extends ActionBarActivity {
 
         //get the listener for calculate
         final Button beginGameButton = (Button)findViewById(R.id.calculateButton);
-        final HashMap<String,List<Object>> calculateHashMap = new HashMap<>(listOfPlayers.length);
+        final Map<String,List<Object>> calculateHashMap = new HashMap<>(listOfPlayers.length);
         beginGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
@@ -115,11 +136,11 @@ public class IndividualGameActivity extends ActionBarActivity {
                         calculateHashMap.put(currentPlayer,playerValues);
                     }
                     //call the function to do the calculations and receive the value
-                    //HashMap<String, Integer> calculatedValue = getCalculation(calculateHashMap);
+                    Map<String, Integer> calculatedValue = ActionHandler.sendInput(calculateHashMap);
 
                     //start the activity to display the calculated value
                     Intent resultCalculatedActivity = new Intent(getApplicationContext(), ResultCalculatedActivity.class);
-                    resultCalculatedActivity.putExtra("calculatedResult", calculateHashMap);//hashmap implements serializable so can be passed in
+                    resultCalculatedActivity.putExtra("calculatedResult", (HashMap)calculatedValue);//hashmap implements serializable so can be passed in
                     startActivity(resultCalculatedActivity);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -128,6 +149,11 @@ public class IndividualGameActivity extends ActionBarActivity {
         });
 
 
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+        View v = inflater.inflate(R.layout.activity_individual_game, parent, false);
+        return v;
     }
 
 
