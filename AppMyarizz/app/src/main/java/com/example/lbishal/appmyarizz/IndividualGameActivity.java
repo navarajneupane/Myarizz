@@ -59,6 +59,10 @@ public class IndividualGameActivity extends Activity {
 
         TableRow tableRowStatic = new TableRow(getApplicationContext());
         tableRowStatic.setLayoutParams(tableParams);
+        //set the background color of the first row
+        tableRowStatic.setBackgroundColor(Color.LTGRAY);
+        //set the boundary between the rows
+        tableRowStatic.setPadding(0,0,0,2); //left, right, top, botoom margin
         TextView tV = new TextView(getApplicationContext());
         tV.setLayoutParams(rowParams);
         tV.setText("Name");
@@ -81,14 +85,20 @@ public class IndividualGameActivity extends Activity {
         //edit text list [for second column]
         final List<EditText> pointsList = new ArrayList<>();
         //Radio button list for seen/unseen
-        final List<RadioButton> seenList = new ArrayList<>();
+        final List<CheckBox> seenList = new ArrayList<>();
         //checkbox list for winner
         final List<CheckBox> winnerList = new ArrayList<>();
 
         for (String S:listOfPlayers) {
 
             TableRow tableRow = new TableRow(getApplicationContext());
+            //set the background color of the first row
+            tableRowStatic.setBackgroundColor(Color.LTGRAY);
+            //set the boundary between the rows
+            tableRowStatic.setPadding(0,0,0,2); //left, right, top, botoom margin
             tableRow.setLayoutParams(tableParams);
+            //add the row border color
+            //tableRow.setBackgroundResource(R.drawable.row_border);
             //first column: name
             TextView textView = new TextView(getApplicationContext());
             textView.setLayoutParams(rowParams);
@@ -103,10 +113,10 @@ public class IndividualGameActivity extends Activity {
             pointsList.add(ed);
             tableRow.addView(ed);
             //third column: seen/unseen
-            RadioButton rB = new RadioButton(getApplicationContext());
-            rB.setTextColor(Color.BLACK);
-            seenList.add(rB);
-            tableRow.addView(rB);
+            CheckBox cB_seen = new CheckBox(getApplicationContext());
+            cB_seen.setTextColor(Color.BLACK);
+            seenList.add(cB_seen);
+            tableRow.addView(cB_seen);
             //fourth column: winner/not-winner
             CheckBox cB = new CheckBox(getApplicationContext());
             cB.setTextColor(Color.BLACK);
