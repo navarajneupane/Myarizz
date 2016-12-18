@@ -1,16 +1,16 @@
 
 Issue list:
 
-1) Invalid values also accepted (Ex. : Calculates values even if "Seen" value is empty(default??))
+1) Invalid values also accepted (Ex. : Calculates values even if "Seen" value is empty(default??)) (Bishal)
 
-2) "Seen" radio button cannot be unchecked
+2) "Seen" radio button cannot be unchecked (Bishal)
 
-3) "Seen" & "Winner" selection widgets are not visible when 'not selected'
+3) "Seen" & "Winner" selection widgets are not visible when 'not selected' (Bishal)
 
-4)Even when a single 'Winner' is not selected calcuation is done.
+4)Even when a single 'Winner' is not selected, calculation is done.
 	- Expected behaviour : Show error "Winner not selected"
 
-5) It is possible to select more than one 'Winner'
+5) It is possible to select more than one 'Winner' (Bishal)
 
 6) When 'unseen', points are still counted
 
@@ -18,11 +18,11 @@ Issue list:
 
 8)Empty name not handled
 
-9) 'Points' box is also not visible
+9) 'Points' box is also not visible (Bishal)
 
 10) Calculation is a mess, even when there is no winner selected, someone is getting money
 
-11) When all players are selected as 'winner' and 'seen', something amzing out of the world happens  
+11) When all players are selected as 'winner' and 'seen', something amazing out of the world happens  
 
 Feature list:
 1) When 'unseen' no need to put points, if kept, than 'seen'/ 'unseen' should handle it

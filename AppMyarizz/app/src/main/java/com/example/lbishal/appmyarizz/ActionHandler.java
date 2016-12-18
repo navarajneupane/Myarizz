@@ -16,7 +16,11 @@ import java.util.Map;
  *
  */
 public class ActionHandler {
-	
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
 	/**
 	 * @param map
 	 * 
@@ -25,6 +29,11 @@ public class ActionHandler {
 	 * @return map
 	 */
     static String TAG = "Action Handler";
+	/*
+	* Parameter 'map' consists of one key and three values, key is 'player's name <String>'
+	*  and values are 'points<integer>', 'seen status<boolean>', and 'winner flag <boolean>'
+	*
+	* */
 	public static Map<String, Integer> sendInput(Map<String, List<Object>> map){
 		
 		int totalPoints = 0;
@@ -34,7 +43,8 @@ public class ActionHandler {
 		
 		for(Map.Entry<String, List<Object>> entry:map.entrySet()){
 			List<Object> values = entry.getValue();
-			int pointOfEachPlayer = (int) values.get(0); 
+			// Bug here, if not seen, point should not be added
+			int pointOfEachPlayer = (int) values.get(0); // First index gives points
 			totalPoints += pointOfEachPlayer;
 		}
         Log.d(TAG, "Total points is " + String.valueOf(totalPoints));
@@ -43,7 +53,8 @@ public class ActionHandler {
 			
 			List<Object> values = entry.getValue();
 			int obtainedPoint = 0;
-			
+
+			// Second index gives 'Seen flag' and third index gives "Winner flag"
 			if(((boolean)values.get(1)) && (!(boolean)(values.get(2)))){ //seen but not winner
 				obtainedPoint = (int)values.get(0)*values.size()-(totalPoints +3); 
 				gamerPoint -=obtainedPoint;
