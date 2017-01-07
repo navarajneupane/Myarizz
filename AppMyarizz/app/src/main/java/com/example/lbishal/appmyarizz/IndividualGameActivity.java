@@ -31,6 +31,7 @@ import java.util.Map;
 
 public class IndividualGameActivity extends Activity {
     String TAG = "IndividualGameActivity";
+    int selected_checkbox_position; //to keep track of which of the checkbox for winner is selected
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +89,9 @@ public class IndividualGameActivity extends Activity {
         final List<EditText> pointsList = new ArrayList<>();
         //Radio button list for seen/unseen
         final List<CheckBox> seenList = new ArrayList<>();
-        //checkbox list for winner
+        //RadioButton list for winner
         final List<CheckBox> winnerList = new ArrayList<>();
+
 
         for (String S:listOfPlayers) {
 
@@ -122,6 +124,25 @@ public class IndividualGameActivity extends Activity {
             //fourth column: winner/not-winner
             CheckBox cB = new CheckBox(getApplicationContext());
             cB.setTextColor(Color.BLACK);
+            cB.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick (View view) {
+                    if (((CheckBox) view).isChecked())                    {
+                        for (int i = 0; i < winnerList.size(); i++) {
+                            if (winnerList.get(i) == view)
+                                selected_checkbox_position = i;
+                            else
+                                winnerList.get(i).setChecked(false);
+                        }
+                    }
+                    else
+                    {
+                        selected_checkbox_position = -1;
+                    }
+                }
+
+            });
+
             winnerList.add(cB);
             tableRow.addView(cB);
             tableLayout.addView(tableRow);
