@@ -58,7 +58,7 @@ public class ActionHandler {
 		if(winnerCounter(map)!=1){
 			Log.d(TAG, "Invalid selection: Winner is either not selected or more than 1 is selected");
 			//TODO: Send this information also to frontend
-			//Test commit
+			//Test commit -a ballu
 		}
 		// 'Not seen' player cannot be 'Winner'
 		else if(invalidWinner(map)){
