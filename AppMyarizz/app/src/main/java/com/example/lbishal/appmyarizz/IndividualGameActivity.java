@@ -55,7 +55,8 @@ public class IndividualGameActivity extends Activity {
         TableLayout tableLayout = new TableLayout(getApplicationContext());
         tableLayout.setLayoutParams(tableParams);
         tableLayout.setStretchAllColumns(true);
-
+        //set the background color of the table
+        tableLayout.setBackgroundColor(Color.LTGRAY);
 
         TableRow tableRowStatic = new TableRow(getApplicationContext());
         tableRowStatic.setLayoutParams(tableParams);
