@@ -1,6 +1,7 @@
 package com.example.lbishal.appmyarizz;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 //import android.support.v7.app.ActionBarActivity;
@@ -133,12 +134,18 @@ public class IndividualGameActivity extends Activity {
         final Map<String,List<Object>> calculateHashMap = new HashMap<>(listOfPlayers.length);
         beginGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //Track the number of seen players. Raise error if no seen player
+                Integer numberOfSeenPlayers = 0;
                 try {
                     //prepare the hash map to provide to the function to do the calculation
                     for (int i=0;i<listOfPlayers.length;i++) {
                         String currentPlayer = listOfPlayers[i];
                         Integer currentPoints = Integer.parseInt(pointsList.get(i).getText().toString());
                         Boolean seenStatus = seenList.get(i).isChecked();
+                        if(seenStatus) {
+                            numberOfSeenPlayers = numberOfSeenPlayers + 1;
+                        }
+
                         Boolean winnerFlag = winnerList.get(i).isChecked();
                         List<Object> playerValues = new ArrayList<Object>();
                         playerValues.add(currentPoints);
@@ -148,20 +155,32 @@ public class IndividualGameActivity extends Activity {
                                 "," + String.valueOf(seenStatus) + "," + String.valueOf(winnerFlag));
                         calculateHashMap.put(currentPlayer, playerValues);
                     }
-                    //call the function to do the calculations and receive the value
-                    Map<String, Integer> calculatedValue = ActionHandler.sendInput(calculateHashMap);
+                    if(numberOfSeenPlayers == 0) {
+                        //raise the error that no player is seen
+                        raiseInputError();
+                    }
+                    else {
+                        //call the function to do the calculations and receive the value
+                        Map<String, Integer> calculatedValue = ActionHandler.sendInput(calculateHashMap);
 
-                    //start the activity to display the calculated value
-                    Intent resultCalculatedActivity = new Intent(getApplicationContext(), ResultCalculatedActivity.class);
-                    resultCalculatedActivity.putExtra("calculatedResult", (HashMap)calculatedValue);//hashmap implements serializable so can be passed in
-                    startActivity(resultCalculatedActivity);
+                        //start the activity to display the calculated value
+                        Intent resultCalculatedActivity = new Intent(getApplicationContext(), ResultCalculatedActivity.class);
+                        resultCalculatedActivity.putExtra("calculatedResult", (HashMap) calculatedValue);//hashmap implements serializable so can be passed in
+                        startActivity(resultCalculatedActivity);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
 
-
+    public void raiseInputError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(IndividualGameActivity.this).
+                setMessage("At least one player should be seen")
+                .setTitle("Input error")
+                .setPositiveButton("Ok",null);
+        builder.show();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
