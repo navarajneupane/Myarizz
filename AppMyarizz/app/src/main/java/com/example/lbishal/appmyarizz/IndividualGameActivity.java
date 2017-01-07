@@ -31,14 +31,7 @@ import java.util.Map;
 
 public class IndividualGameActivity extends Activity {
     String TAG = "IndividualGameActivity";
-    int selected_checkbox_position; //to keep track of which of the checkbox for winner is selected
-    //hashmap to store the string to be displayed for differ error conditions of user input
-    HashMap<Integer, String> errorCodeString = new HashMap<Integer, String>(){
-    {
-        put(1,"No winner selected. Check the box for the player who won the game");
-        put(2,"No seen player selected. At least one player must be seen.");
-        put(3,"The winner must be a seen player.");
-    }};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +89,8 @@ public class IndividualGameActivity extends Activity {
         final List<EditText> pointsList = new ArrayList<>();
         //Radio button list for seen/unseen
         final List<CheckBox> seenList = new ArrayList<>();
-        //RadioButton list for winner
+        //checkbox list for winner
         final List<CheckBox> winnerList = new ArrayList<>();
-
 
         for (String S:listOfPlayers) {
 
@@ -131,22 +123,7 @@ public class IndividualGameActivity extends Activity {
             //fourth column: winner/not-winner
             CheckBox cB = new CheckBox(getApplicationContext());
             cB.setTextColor(Color.BLACK);
-            cB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (((CheckBox) view).isChecked()) {
-                        for (int i = 0; i < winnerList.size(); i++) {
-                            if (winnerList.get(i) == view)
-                                selected_checkbox_position = i;
-                            else
-                                winnerList.get(i).setChecked(false);
-                        }
-                    } else {
-                        selected_checkbox_position = -1;
-                    }
-                }
 
-            });
             winnerList.add(cB);
             tableRow.addView(cB);
             tableLayout.addView(tableRow);
@@ -157,6 +134,7 @@ public class IndividualGameActivity extends Activity {
         //get the listener for calculate
         final Button beginGameButton = (Button)findViewById(R.id.calculateButton);
         final Map<String,List<Object>> calculateHashMap = new HashMap<>(listOfPlayers.length);
+        final MyarizzUtil util = new MyarizzUtil();
         beginGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Track the number of seen players. Raise error if no seen player
@@ -191,14 +169,10 @@ public class IndividualGameActivity extends Activity {
                                 "," + String.valueOf(seenStatus) + "," + String.valueOf(winnerFlag));
                         calculateHashMap.put(currentPlayer, playerValues);
                     }
-                    if(pointTableError !=0) //some error has already been found, raise alert dialog
-                    {
-                        raiseInputError(pointTableError);
-                    }
-                    else if(numberOfSeenPlayers == 0) {
-                        //raise the error that no player is seen
-                        pointTableError = 2;
-                        raiseInputError(pointTableError);
+
+
+                    if(numberOfSeenPlayers == 0) {
+                        raiseInputError(1);
                     }
                     else if(!atleastOneWinnerSelected) {
                         //raise the error that no winner has been selected
