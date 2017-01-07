@@ -195,16 +195,16 @@ public class IndividualGameActivity extends Activity {
 
                     if(pointTableError !=0) //some error has already been found, raise alert dialog
                     {
-                        raiseInputError(pointTableError);
+                        util.raiseInputError(errorCodeString.get(pointTableError), IndividualGameActivity.this);
                     }
                     else if(numberOfSeenPlayers == 0) {
                         pointTableError = 2;
-                        raiseInputError(pointTableError);
+                        util.raiseInputError(errorCodeString.get(pointTableError), IndividualGameActivity.this);
                     }
                     else if(!atleastOneWinnerSelected) {
                         //raise the error that no winner has been selected
                         pointTableError = 1;
-                        raiseInputError(pointTableError);
+                        util.raiseInputError(errorCodeString.get(pointTableError), IndividualGameActivity.this);
                     }
                     else {
                         //call the function to do the calculations and receive the value
@@ -220,14 +220,6 @@ public class IndividualGameActivity extends Activity {
                 }
             }
         });
-    }
-
-    public void raiseInputError(Integer errorCode) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(IndividualGameActivity.this)
-                .setMessage(errorCodeString.get(errorCode))
-                .setTitle("Input error")
-                .setPositiveButton("Ok",null);
-        builder.show();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
