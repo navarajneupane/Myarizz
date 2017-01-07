@@ -206,6 +206,8 @@ public class IndividualGameActivity extends Activity {
                         //start the activity to display the calculated value
                         Intent resultCalculatedActivity = new Intent(getApplicationContext(), ResultCalculatedActivity.class);
                         resultCalculatedActivity.putExtra("calculatedResult", (HashMap) calculatedValue);//hashmap implements serializable so can be passed in
+                        resultCalculatedActivity.putExtra("listOfPlayers", (String[]) listOfPlayers); //also pass the list of players because hashmap cannot maintain
+                                                                                                      //the order. LinkedHashmap cannot be passed across activity.
                         startActivity(resultCalculatedActivity);
                     }
                 } catch (Exception e) {
