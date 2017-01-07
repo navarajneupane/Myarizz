@@ -32,14 +32,6 @@ import java.util.Map;
 public class IndividualGameActivity extends Activity {
     String TAG = "IndividualGameActivity";
     int selected_checkbox_position; //to keep track of which of the checkbox for winner is selected
-    //hashmap to store the string to be displayed for differ error conditions of user input
-    HashMap<Integer, String> errorCodeString = new HashMap<Integer, String>(){
-        {
-            put(1,"No winner selected. Check the box for the player who won the game");
-            put(2,"No seen player selected. At least one player must be seen.");
-            put(3,"The winner must be a seen player.");
-        }};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +157,7 @@ public class IndividualGameActivity extends Activity {
                 //Flag to ensure that atleast one winner is selected
                 Boolean atleastOneWinnerSelected = Boolean.FALSE;
                 //Variable to keep track of the user input error
-                Integer pointTableError = 0; //0 means no error
+                String pointTableError = ""; //0 means no error
                 try {
                     //prepare the hash map to provide to the function to do the calculation
                     for (int i=0;i<listOfPlayers.length;i++) {
@@ -178,7 +170,7 @@ public class IndividualGameActivity extends Activity {
                         Boolean seenStatus = seenList.get(i).isChecked();
                         if (winnerFlag & !seenStatus) {
                             //the winner is not selected as seen so raise error
-                            pointTableError = 3;
+                            pointTableError = "WINNER_NOT_SEEN";
                             break; //no need to continue
                         }
                         if(seenStatus) {
@@ -193,18 +185,18 @@ public class IndividualGameActivity extends Activity {
                         calculateHashMap.put(currentPlayer, playerValues);
                     }
 
-                    if(pointTableError !=0) //some error has already been found, raise alert dialog
+                    if(!pointTableError.isEmpty()) //some error has already been found, raise alert dialog
                     {
-                        util.raiseInputError(errorCodeString.get(pointTableError), IndividualGameActivity.this);
+                        util.raiseInputError(util.errorCodeString.get(pointTableError), IndividualGameActivity.this);
                     }
                     else if(numberOfSeenPlayers == 0) {
-                        pointTableError = 2;
-                        util.raiseInputError(errorCodeString.get(pointTableError), IndividualGameActivity.this);
+                        pointTableError = "NO_SEEN";
+                        util.raiseInputError(util.errorCodeString.get(pointTableError), IndividualGameActivity.this);
                     }
                     else if(!atleastOneWinnerSelected) {
                         //raise the error that no winner has been selected
-                        pointTableError = 1;
-                        util.raiseInputError(errorCodeString.get(pointTableError), IndividualGameActivity.this);
+                        pointTableError = "NO_WINNER";
+                        util.raiseInputError(util.errorCodeString.get(pointTableError), IndividualGameActivity.this);
                     }
                     else {
                         //call the function to do the calculations and receive the value

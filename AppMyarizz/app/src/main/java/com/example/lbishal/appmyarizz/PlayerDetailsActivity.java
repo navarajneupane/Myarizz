@@ -68,11 +68,17 @@ public class PlayerDetailsActivity extends Activity {
                     //get the list of players from edit text buttons
                     for (int i=0;i<numberOfPlayers;i++) {
                         listOfPlayers[i]=editTextList.get(i).getText().toString();
+                        if(listOfPlayers[i].isEmpty()){
+                            util.raiseInputError(util.errorCodeString.get("EMPTY_NAME"), PlayerDetailsActivity.this);
+                            return;
+                        }
+                        else{
+                            Log.d(TAG, "Name of player:"+listOfPlayers[i]);
+                        }
                     }
-
                     Set<String> h = new HashSet<>(Arrays.asList(listOfPlayers));
                     if(h.size()<listOfPlayers.length){
-                        util.raiseInputError("Duplicate player's names not allowed!!", PlayerDetailsActivity.this);
+                        util.raiseInputError(util.errorCodeString.get("DUPLICATE_NAME"), PlayerDetailsActivity.this);
                     }
                     else {
                         Intent playerDetailsIndent = new Intent(getApplicationContext(), IndividualGameActivity.class);
