@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,13 +35,13 @@ public class ActionHandler {
 	*  and values are 'points<integer>', 'seen status<boolean>', and 'winner flag <boolean>'
 	*
 	* */
-	public static Map<String, Integer> sendInput(Map<String, List<Object>> map){
+	public static HashMap<String, Integer> sendInput(HashMap<String, List<Object>> map){
 		
 		int totalPoints = 0;
 		int gamerPoint  = 0;
 		int pointOfEachPlayer = 0;
 		String winner = "";
-		Map<String, Integer> mapPlayerPoint = new HashMap<String, Integer>();
+		HashMap<String, Integer> mapPlayerPoint = new HashMap<String, Integer>();
 		
 		for(Map.Entry<String, List<Object>> entry:map.entrySet()){
 			List<Object> values = entry.getValue();
@@ -130,7 +131,7 @@ public class ActionHandler {
 	 * 
 	 */
 	public static void main(String[] args){
-		Map<String, List<Object>> map = new HashMap<String, List<Object>>();
+		HashMap<String, List<Object>> map = new HashMap<String, List<Object>>();
 
 		List<Object> player1 = new ArrayList<Object>();
 		player1.add(5);
@@ -151,7 +152,7 @@ public class ActionHandler {
 		map.put("B", player2);
 		map.put("C", player3);
 		
-		Map<String, Integer> mapPlayerPoint =sendInput(map);
+		HashMap<String, Integer> mapPlayerPoint =sendInput(map);
 		
 		for(Map.Entry<String, Integer> entry:mapPlayerPoint.entrySet()){
 			

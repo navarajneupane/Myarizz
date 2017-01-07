@@ -13,6 +13,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -52,7 +53,7 @@ public class ResultCalculatedActivity extends Activity {
         tableRowStatic.addView(tV);
         tableLayout.addView(tableRowStatic);
 
-        for (HashMap.Entry<String, Integer> entry : calculatedResult.entrySet()) {
+        for (Map.Entry<String, Integer> entry : calculatedResult.entrySet()) {
             String currentPlayer = entry.getKey();
             Integer currentPoints = entry.getValue();
 
