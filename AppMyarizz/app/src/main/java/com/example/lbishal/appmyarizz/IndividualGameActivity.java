@@ -132,6 +132,7 @@ public class IndividualGameActivity extends Activity {
         //get the listener for calculate
         final Button beginGameButton = (Button)findViewById(R.id.calculateButton);
         final Map<String,List<Object>> calculateHashMap = new HashMap<>(listOfPlayers.length);
+        final MyarizzUtil util = new MyarizzUtil();
         beginGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Track the number of seen players. Raise error if no seen player
@@ -155,9 +156,10 @@ public class IndividualGameActivity extends Activity {
                                 "," + String.valueOf(seenStatus) + "," + String.valueOf(winnerFlag));
                         calculateHashMap.put(currentPlayer, playerValues);
                     }
+
                     if(numberOfSeenPlayers == 0) {
                         //raise the error that no player is seen
-                        raiseInputError();
+                        util.raiseInputError("At least one player should be seen", IndividualGameActivity.this);
                     }
                     else {
                         //call the function to do the calculations and receive the value
@@ -173,14 +175,6 @@ public class IndividualGameActivity extends Activity {
                 }
             }
         });
-    }
-
-    public void raiseInputError() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(IndividualGameActivity.this).
-                setMessage("At least one player should be seen")
-                .setTitle("Input error")
-                .setPositiveButton("Ok",null);
-        builder.show();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){

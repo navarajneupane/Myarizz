@@ -20,7 +20,10 @@ import android.widget.LinearLayout;
 import android.view.ViewGroup.LayoutParams;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class PlayerDetailsActivity extends Activity {
@@ -57,6 +60,7 @@ public class PlayerDetailsActivity extends Activity {
 
         //get the listener for begin game button
         final Button beginGameButton = (Button)findViewById(R.id.beginGameButton);
+        final MyarizzUtil util = new MyarizzUtil();
         beginGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
@@ -65,9 +69,16 @@ public class PlayerDetailsActivity extends Activity {
                     for (int i=0;i<numberOfPlayers;i++) {
                         listOfPlayers[i]=editTextList.get(i).getText().toString();
                     }
-                    Intent playerDetailsIndent = new Intent(getApplicationContext(), IndividualGameActivity.class);
-                    playerDetailsIndent.putExtra("listOfPlayers", listOfPlayers);
-                    startActivity(playerDetailsIndent);
+
+                    Set<String> h = new HashSet<>(Arrays.asList(listOfPlayers));
+                    if(h.size()<listOfPlayers.length){
+                        util.raiseInputError("Duplicate player's names not allowed!!", PlayerDetailsActivity.this);
+                    }
+                    else {
+                        Intent playerDetailsIndent = new Intent(getApplicationContext(), IndividualGameActivity.class);
+                        playerDetailsIndent.putExtra("listOfPlayers", listOfPlayers);
+                        startActivity(playerDetailsIndent);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
