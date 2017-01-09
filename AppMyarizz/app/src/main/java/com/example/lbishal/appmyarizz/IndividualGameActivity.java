@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -149,7 +150,7 @@ public class IndividualGameActivity extends Activity {
 
        //get the listener for calculate
         final Button beginGameButton = (Button)findViewById(R.id.calculateButton);
-        final Map<String,List<Object>> calculateHashMap = new HashMap<>(listOfPlayers.length);
+        final HashMap<String,List<Object>> calculateHashMap = new HashMap<>(listOfPlayers.length);
         final MyarizzUtil util = new MyarizzUtil();
         beginGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -206,6 +207,8 @@ public class IndividualGameActivity extends Activity {
                         //start the activity to display the calculated value
                         Intent resultCalculatedActivity = new Intent(getApplicationContext(), ResultCalculatedActivity.class);
                         resultCalculatedActivity.putExtra("calculatedResult", (HashMap) calculatedValue);//hashmap implements serializable so can be passed in
+                        resultCalculatedActivity.putExtra("listOfPlayers", (String[]) listOfPlayers); //also pass the list of players because hashmap cannot maintain
+                                                                                                      //the order. LinkedHashmap cannot be passed across activity.
                         startActivity(resultCalculatedActivity);
                     }
                 } catch (Exception e) {

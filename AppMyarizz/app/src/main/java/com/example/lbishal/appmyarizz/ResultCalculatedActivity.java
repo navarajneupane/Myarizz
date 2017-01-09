@@ -31,7 +31,8 @@ public class ResultCalculatedActivity extends Activity {
         imView.setLayoutParams(params);
         //get the result
         final Map<String,Integer> calculatedResult = (HashMap<String,Integer>)getIntent().getExtras().getSerializable("calculatedResult");
-
+        //get the list of players
+        final String[] listOfPlayers = (String[])getIntent().getExtras().getSerializable("listOfPlayers");
         //iterate through the received result and populate the table
         //create the table and add to the view
         LinearLayout currentView = (LinearLayout)findViewById(R.id.resultCalculatedView);
@@ -54,9 +55,8 @@ public class ResultCalculatedActivity extends Activity {
         tableRowStatic.addView(tV);
         tableLayout.addView(tableRowStatic);
 
-        for (HashMap.Entry<String, Integer> entry : calculatedResult.entrySet()) {
-            String currentPlayer = entry.getKey();
-            Integer currentPoints = entry.getValue();
+        for (String currentPlayer : listOfPlayers){
+            Integer currentPoints = calculatedResult.get(currentPlayer);
 
             TableRow tbRow = new TableRow(getApplicationContext());
             tbRow.setLayoutParams(tableParams);
