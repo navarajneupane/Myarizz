@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -74,6 +76,18 @@ public class ResultCalculatedActivity extends Activity {
             tableLayout.addView(tbRow);
         }
         currentView.addView(tableLayout);
+
+
+        final MyarizzUtil util = new MyarizzUtil();
+        //get the listener for cumulativeButton
+        final Button cumulativeButton = (Button)findViewById(R.id.cumulativeButton);
+        cumulativeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO:
+                util.raiseInputError("Cumulative clicked, not implemented yet!!", ResultCalculatedActivity.this);
+            }
+        });
+
     }
 
 

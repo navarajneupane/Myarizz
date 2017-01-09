@@ -146,7 +146,8 @@ public class IndividualGameActivity extends Activity {
 
         currentView.addView(tableLayout); //add the table to the view
 
-        //get the listener for calculate
+
+       //get the listener for calculate
         final Button beginGameButton = (Button)findViewById(R.id.calculateButton);
         final Map<String,List<Object>> calculateHashMap = new HashMap<>(listOfPlayers.length);
         final MyarizzUtil util = new MyarizzUtil();
@@ -212,6 +213,16 @@ public class IndividualGameActivity extends Activity {
                 }
             }
         });
+
+/*        //get the listener for cumulativeButton
+        final Button cumulativeButton = (Button)findViewById(R.id.cumulativeButton);
+        cumulativeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO:
+                util.raiseInputError("Cumulative clicked, not implemented yet!!", IndividualGameActivity.this);
+            }
+        });*/
+
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
